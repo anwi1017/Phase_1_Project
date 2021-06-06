@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -79,10 +80,31 @@ public class AmazonSearch {
         keyword.sendKeys(Searchterm);
         
         //search submit button
+        
  		WebElement submit = driver.findElement(By.xpath("//*[@id='nav-search-submit-button']"));
  		
  		submit.click();
-        
+ 		
+ 		//count results
+ 		
+		//List<WebElement> results = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']"));
+		List<WebElement> results = driver.findElements(By.xpath("//h2[@class='a-size-mini a-spacing-none a-color-base s-line-clamp-4']"));
+		
+		System.out.println("First page results total = " + results.size());
+		
+		//print list of items
+		
+		  for (WebElement result:results) {
+	            System.out.println(result.getText()); 
+		  }
+		  
+		//check count
+		  
+		WebElement ResultBarText = driver.findElement(By.xpath("//*[@class='a-section a-spacing-small a-spacing-top-small']/span[1]"));
+		
+		System.out.println("Result bar: " + ResultBarText.getText());
+		
+		//driver.close();        
 
 	}
 
